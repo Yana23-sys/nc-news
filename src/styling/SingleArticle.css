@@ -1,0 +1,20 @@
+.article-single-img {
+    width: 350px;
+    height: 350px;
+    object-fit: cover;
+}
+
+.article-top-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.article-top-card p{
+    margin: 0;
+}
+
+.article-top-card h2 {
+    margin-top: 50px;
+}
+

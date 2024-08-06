@@ -18,5 +18,6 @@ const ArticleCard = ({ article }) => {
     )
   }
   
+  
   export default ArticleCard
   

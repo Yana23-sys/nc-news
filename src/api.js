@@ -13,3 +13,23 @@ export const fetchArticles = () => {
         throw error
     })
 }
+
+export const fetchArticleById = (article_id) => {
+    return api.get(`/articles/${article_id}`)
+      .then(response => {
+        return response.data})
+      .catch(error => {
+        console.error('Error getting items:', error)
+        throw error
+    })
+}
+
+// export const fetchComments = (article_id) => {
+//     return api.get(`/articles/${article_id}/comments`)
+//       .then(response => {
+//         return response.data})
+//       .catch(error => {
+//         console.error('Error getting items:', error)
+//         throw error
+//     })
+// }

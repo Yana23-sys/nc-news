@@ -6,10 +6,24 @@ import '../styling/ArticleList.css'
 const ArticleList = () => {
 
     const [articles, setArticles] = useState([])
+    const [loadingArticles, setLoadingArticles] = useState(true)
+    const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        fetchArticles().then(fetchedArticles => setArticles(fetchedArticles))
+        setLoadingArticles(true)
+        fetchArticles()
+        .then(fetchedArticles => {
+            setArticles(fetchedArticles)
+            setLoadingArticles(false)
+        })
+        .catch(error => {
+            setIsError(true)
+            setLoadingArticles(false)
+          })
     }, [])
+
+    if (loadingArticles) return <p>Loading articles...</p>
+    if (isError) return <p>Failed to fetch articles</p>
 
     return (
         <div>
