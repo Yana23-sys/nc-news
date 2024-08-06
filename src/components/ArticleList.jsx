@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import { fetchArticles } from '../api'
 import ArticleCard from './ArticleCard'
 import '../styling/ArticleList.css'
+import { useParams } from 'react-router-dom'
 
-const ArticleList = () => {
+const ArticleList = ({ params, limit}) => {
 
     const [articles, setArticles] = useState([])
     const [loadingArticles, setLoadingArticles] = useState(true)
@@ -11,7 +12,7 @@ const ArticleList = () => {
 
     useEffect(() => {
         setLoadingArticles(true)
-        fetchArticles()
+        fetchArticles({...params, limit })
         .then(fetchedArticles => {
             setArticles(fetchedArticles)
             setLoadingArticles(false)
@@ -20,14 +21,13 @@ const ArticleList = () => {
             setIsError(true)
             setLoadingArticles(false)
           })
-    }, [])
+    }, [params, limit])
 
     if (loadingArticles) return <p>Loading articles...</p>
     if (isError) return <p>Failed to fetch articles</p>
 
     return (
         <div>
-            <h1>All Articles</h1>
             <div className='article-list'>
                 {articles.map(article => 
                     <ArticleCard key={article.article_id} article={article} />
