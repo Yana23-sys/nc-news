@@ -1,0 +1,6 @@
+.article-list {
+    background-color: rgb(213, 189, 157);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

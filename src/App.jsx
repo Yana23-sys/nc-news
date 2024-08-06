@@ -1,10 +1,13 @@
-import './App.css'
+import './styling/App.css'
+import Header from './components/Header.jsx'
+import ArticleList from './components/ArticleList.jsx'
 
 function App() {
 
   return (
     <>
-     <h1>NC News</h1>
+     <Header />
+     <ArticleList />
     </>
   )
 }
