@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
-import { fetchArticleById } from '../api'
+import { useParams} from 'react-router-dom'
+import { fetchArticleById, updateArticleVotes } from '../api'
 import '../styling/SingleArticle.css'
 import CommentsSection from './CommentsSection'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
@@ -20,24 +20,39 @@ const SingleArticle = () => {
             setLoading(false)
         })
         .catch(err => {
-            setError(true)
+            setError('Failed to load article.')
             setLoading(false)
         })
     }, [article_id])
 
-    if (loading) return <p>Loading article...</p>
-    if (error) return <p>Failed to fetch article</p>
-    if (!article) return <p>Article not found</p>
 
+    const handleVote = (vote) => {
+        const newVote = article.votes + vote
+        setArticle({ ...article, votes: newVote })
+
+        updateArticleVotes(article_id, vote)
+        .catch(() => {
+            setArticle({...article, votes: article.votes - vote})
+            setError('Failed to update votes.')
+        });
+    }
+
+
+    if (loading) return <p>Loading article...</p>
+    if (error) return <Alert variant="danger">{error}</Alert>
+    if (!article) return <Alert variant="danger">Article not found</Alert>
+
+    
     return (
         <Container>
             <Row className="my-4 single-article-container">
-                <Col md={7}>
+                <Col xs={3} sm={5} md={7} lg={8}>
                     <Card>
                         <Card.Body className="m-2">
                             <Card.Title className="mt-3 mb-3">{article.title}</Card.Title>
-                            <Card.Subtitle className="mb-5 text-muted">
-                               By {article.author} | {new Date(article.created_at).toDateString()}
+                            <Card.Subtitle className="text-muted single-card-subtitle">
+                            <p>By {article.author}</p>
+                            <p>{new Date(article.created_at).toDateString()}</p>
                             </Card.Subtitle>
                             <div className="article-img-container">
                                 <Card.Img variant="top" src={article.article_img_url} />
@@ -47,9 +62,10 @@ const SingleArticle = () => {
                                 Edit
                             </Button> */}
                         </Card.Body>
-                        <Card.Footer className="text-muted card-footer">
+                        <Card.Footer className="text-muted single-card-footer">
                             <p className='mb-0'>Votes: {article.votes}</p>
-                            <Button variant="light">👍</Button>
+                            <Button variant="success" onClick={() => handleVote(1)}>👍</Button>
+                            <Button variant="danger" onClick={() => handleVote(-1)}>👎</Button>
                         </Card.Footer>
                     </Card>
                 </Col> 
