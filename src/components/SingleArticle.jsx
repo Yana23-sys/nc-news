@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { fetchArticleById } from '../api'
 import '../styling/SingleArticle.css'
-// import CommentsSection from './CommentsSection'
+import CommentsSection from './CommentsSection'
 
 
 const SingleArticle = () => {
@@ -39,11 +39,11 @@ const SingleArticle = () => {
             <img src={article.article_img_url} alt={article.title} className='article-single-img'/>
             <p>Body: {article.body}</p>
             <p>Votes: {article.votes}</p>
-            <Link to="/articles">Back to Articles</Link>
 
-            {/* {currentUser === article.author && <button>Edit Article</button>}
-            <CommentsSection article_id={article_id}/>
-            <p>Comments: {article.comment_count}</p> */}  
+            {/* {currentUser === article.author && <button>Edit Article</button>} */}
+            <CommentsSection article_id={article_id} comment_count={article.comment_count}/>
+
+            <Link to="/articles">Back to Articles</Link>
         </div>
     )
 }
