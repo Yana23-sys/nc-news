@@ -1,20 +1,27 @@
 import "../styling/ArticleCard.css"
-import { Link } from "react-router-dom"
+import Card from 'react-bootstrap/Card'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const ArticleCard = ({ article }) => {
     return (
-      <div className="article-card">
-            <img src={article.article_img_url} alt={article.title} className="article-img"/>
-            <div className="card-body">
-                <h3>{article.title}</h3>
-                <p id="article-topic">Topic: {article.topic}</p>
-                <p id="article-author">By {article.author}</p>
-                <p id="article-date">Created at: {new Date(article.created_at).toLocaleDateString()}</p>
-                <p id="article-votes">Votes: {article.votes}</p>
-                <p id="article-comments">Comments: {article.comment_count}</p>
-                <Link to={`/articles/${article.article_id}`}>Read Article</Link>
-            </div>
-      </div>
+      <Card className="article-card">
+        <Card.Img  className="article-img" variant="top" src={article.article_img_url} />
+        <Card.Body className="card-body">
+          <Card.Title id="article-title">{article.title}</Card.Title>
+        </Card.Body>
+
+        <ListGroup className="list-group-flush">
+          <ListGroup.Item id="article-topic"> {article.topic}</ListGroup.Item>
+          <ListGroup.Item>By {article.author}</ListGroup.Item>
+          <ListGroup.Item>Created at: {new Date(article.created_at).toLocaleDateString()}</ListGroup.Item>
+          <ListGroup.Item>
+            <p>Votes: {article.votes}</p>
+            <p>Comments: {article.comment_count}</p>
+          </ListGroup.Item>
+        </ListGroup>
+
+        <Card.Link id="read-article" href={`/articles/${article.article_id}`}>Read Article</Card.Link>
+      </Card>
     )
   }
   

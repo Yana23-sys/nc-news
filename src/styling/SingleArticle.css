@@ -1,4 +1,4 @@
-.article-single-img {
+/* .article-single-img {
     width: 350px;
     height: 350px;
     object-fit: cover;
@@ -16,5 +16,37 @@
 
 .article-top-card h2 {
     margin-top: 50px;
+} */
+
+
+.single-article-container {
+    display: flex;
+    justify-content: center;
 }
 
+
+.article-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+img.card-img-top {
+    width: 75%;
+    object-fit: cover;
+    position: relative;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.card-footer button {
+    background-color:rgb(246, 226, 202);
+    border-color: rgb(232, 208, 178);
+    color: black;
+    margin-left: 10px;
+}

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { fetchComments } from '../api'
 import '../styling/CommentsSection.css'
+import Card from 'react-bootstrap/Card'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
 
 
 const CommentsSection = ({ article_id, comment_count }) => {
@@ -39,16 +42,20 @@ const CommentsSection = ({ article_id, comment_count }) => {
             </form> */}
 
             <div className='comment-list'>
-                <ul>
-                    {comments.map(comment => 
-                        <li key={comment.comment_id} className='comment-card'>
-                            <h3 id='author'>{comment.author}</h3>
-                            <p id='date'>{new Date(comment.created_at).toDateString()}</p>
-                            <p id='body'>{comment.body}</p>
-                            <p>Votes: {comment.votes}</p>
-                        </li>
+                <Row xs={1} sm={2} md={3} lg={4} className="g-4">
+                    {comments.map((comment, idx) => 
+                        <Col key={idx}>
+                            <Card border="light" className='comment-card' key={comment.comment_id}>
+                                <Card.Header>{comment.author}</Card.Header>
+                                <Card.Body>
+                                    <Card.Text className="card-date mb-2 text-muted">{new Date(comment.created_at).toDateString()}</Card.Text>
+                                    <Card.Text>{comment.body}</Card.Text>
+                                </Card.Body>
+                                <Card.Link href="#">Votes: {comment.votes}</Card.Link>
+                            </Card>
+                        </Col>
                     )}
-                </ul>
+                </Row>
             </div>
         </div>
     )
