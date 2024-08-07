@@ -3,6 +3,7 @@ import { useParams} from 'react-router-dom'
 import { fetchArticleById, updateArticleVotes } from '../api'
 import '../styling/SingleArticle.css'
 import CommentsSection from './CommentsSection'
+import CommentForm from './CommentForm'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 
 
@@ -12,6 +13,7 @@ const SingleArticle = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
     // const currentUser = 'grumpy19'
+    const [updatedComments, setUpdatedComments] = useState(false)
 
     useEffect(() => {
         fetchArticleById(article_id)
@@ -23,7 +25,7 @@ const SingleArticle = () => {
             setError('Failed to load article.')
             setLoading(false)
         })
-    }, [article_id])
+    }, [article_id, updatedComments])
 
 
     const handleVote = (vote) => {
@@ -34,7 +36,12 @@ const SingleArticle = () => {
         .catch(() => {
             setArticle({...article, votes: article.votes - vote})
             setError('Failed to update votes.')
-        });
+        })
+    }
+
+
+    const handleCommentPosted = () => {
+        setUpdatedComments(true) // refresh comments section
     }
 
 
@@ -70,6 +77,7 @@ const SingleArticle = () => {
                     </Card>
                 </Col> 
             </Row>
+            <CommentForm article_id={article_id} handleCommentPosted={handleCommentPosted}/>
             <Row>
                 <CommentsSection article_id={article_id} comment_count={article.comment_count}/>
             </Row>
@@ -79,20 +87,3 @@ const SingleArticle = () => {
 }
 
 export default SingleArticle
-
-        // <div>
-        //     <div className='article-top-card'>
-        //         <h2>{article.title}</h2>
-        //         <p>{article.topic}</p>
-        //         <p>By {article.author}</p>
-        //         <p>{new Date(article.created_at).toDateString()}</p>
-        //     </div>
-        //     <img src={article.article_img_url} alt={article.title} className='article-single-img'/>
-        //     <p>Body: {article.body}</p>
-        //     <p>Votes: {article.votes}</p>
-
-        //     {/* {currentUser === article.author && <button>Edit Article</button>} */}
-        //     <CommentsSection article_id={article_id} comment_count={article.comment_count}/>
-
-        //     <Link to="/articles">Back to Articles</Link>
-        // </div>

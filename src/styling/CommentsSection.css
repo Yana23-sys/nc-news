@@ -32,3 +32,16 @@ p.card-date {
 }
 
 
+/* Form */
+
+.form-button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.form-comment-container {
+    width: 75%;
+    padding-left: 20%;
+    margin-top: 40px;
+}
