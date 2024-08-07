@@ -8,7 +8,7 @@ const Home = () => {
     const popularArticlesParams = { sort_by: 'votes', order: 'desc' }
 
     return (
-        <div>
+        <div className='home-container'>
             <h1 id='home-title'>Hello, User!</h1>
             <div>
                 <h2>Newest Articles</h2>

@@ -1,34 +1,34 @@
-.comment-list ul {
+.comment-list {
     background-color: rgb(213, 189, 157);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border-radius: 5px;
+    padding: 10px;
+    height: auto;
 }
 
 .comment-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: #fff;
-    width: 250px;
-    height: 250px;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
+    height: 33vh;
+}
+
+.card-date {
+    text-align: left;
+}
+
+@media screen and (min-width: 601px) {
+    .card-text-body {
+      font-size: 0.8rem;
+    }
+    .one-comment-card {
+        height: 38vh;
+    }
+}
+
+p.card-date {
+    font-size: 0.7rem;
     padding: 10px;
-    margin: 10px;
-}
-
-.comment-card #body {
-    margin: 0;
-    height: 150px;
-}
-
-.comment-card #date {
-    margin: 0;
-    margin-bottom: 40px;
-    font-size: 12px;
-}
-
-.comment-card #author {
     margin: 0;
 }
+
+

@@ -33,3 +33,12 @@ export const fetchComments = (article_id) => {
         throw error
     })
 }
+
+export const updateArticleVotes = (article_id, vote) => {
+  return api.patch(`/articles/${article_id}`, { inc_votes: vote })
+    .then(response => response.data)
+    .catch(error => {
+        console.error('Error updating votes:', error)
+        throw error
+    })
+};

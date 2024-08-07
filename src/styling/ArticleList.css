@@ -1,6 +1,6 @@
-.article-list {
-    background-color: rgb(213, 189, 157);
+.article-list-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin-top: 50px;
 }
