@@ -41,6 +41,8 @@ const Header = () => {
                             </NavDropdown>
 
                             <Nav.Link href="/profile">My profile</Nav.Link>
+                            <Nav.Link href="/users">Users</Nav.Link>
+
                         </Nav>
 
                         <Form className="d-flex">

@@ -51,3 +51,12 @@ export const postComment = (article_id, comment) => {
         throw error
     })
 }
+
+export const fetchUsers = () => {
+    return api.get('/users')
+        .then(response => response.data) 
+        .catch(error => {
+            console.error('Error fetching users:', error)
+            throw error
+        })
+}
