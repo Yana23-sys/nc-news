@@ -1,4 +1,5 @@
 import './styling/App.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from "react-router-dom"
 import Header from './components/Header.jsx'
 import ArticleList from './components/ArticleList.jsx'
