@@ -38,7 +38,7 @@ const SingleArticle = () => {
         // check if user has already voted for this article
         const votedArticles = getVotedArticles()
         setIsVoted(votedArticles.includes(article_id))
-    }, [article_id, updatedComments])
+    }, [article_id, setUpdatedComments])
 
 
 
@@ -72,11 +72,14 @@ const SingleArticle = () => {
     }
 
 
-    const handleCommentPosted = () => {
-        setUpdatedComments(true) // refresh comments section
-    }
+    // const handleCommentPosted = () => {
+    //     setUpdatedComments(prevValue => !prevValue) // refresh comments section
+    //         // if (typeof prevValue === 'boolean') return [comment]
+    //         // else return [...prevValue, comment]
+            
+    // }
 
-
+    
     if (loading) return <p>Loading article...</p>
     if (error) return <Alert variant="danger">{error}</Alert>
     if (!article) return <Alert variant="danger">Article not found</Alert>
@@ -111,9 +114,10 @@ const SingleArticle = () => {
                 </Col> 
             </Row>
             {voteMessage && <Alert variant="danger" className="mt-2">{voteMessage}</Alert>}
-            <CommentForm article_id={article_id} handleCommentPosted={handleCommentPosted}/>
+
+            <CommentForm article_id={article_id} setUpdatedComments={setUpdatedComments} />
             <Row>
-                <CommentsSection article_id={article_id} comment_count={article.comment_count}/>
+                <CommentsSection article_id={article_id} setUpdatedComments={setUpdatedComments} updatedComments={updatedComments}/>
             </Row>
             <Card.Link as={Link} to="/articles">Back to Articles</Card.Link>
         </Container>
