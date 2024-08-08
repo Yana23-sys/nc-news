@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams} from 'react-router-dom'
 import { fetchArticleById, updateArticleVotes } from '../api'
 import '../styling/SingleArticle.css'
 import CommentsSection from './CommentsSection'
 import CommentForm from './CommentForm'
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
+import { UserContext } from '../contexts/User'
+import { getVotedArticles, setVotedArticles } from '../utils/articleVotesLocalStorage'
 
 
 const SingleArticle = () => {
@@ -12,8 +14,15 @@ const SingleArticle = () => {
     const [article, setArticle] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    // const currentUser = 'grumpy19'
+
     const [updatedComments, setUpdatedComments] = useState(false)
+    const { isLoggedIn } = useContext(UserContext)
+    const [voteMessage, setVoteMessage] = useState('')
+    const [isVoted, setIsVoted] = useState(false)
+
+
+
+
 
     useEffect(() => {
         fetchArticleById(article_id)
@@ -25,17 +34,40 @@ const SingleArticle = () => {
             setError('Failed to load article.')
             setLoading(false)
         })
+
+        // check if user has already voted for this article
+        const votedArticles = getVotedArticles()
+        setIsVoted(votedArticles.includes(article_id))
     }, [article_id, updatedComments])
 
 
+
     const handleVote = (vote) => {
+        if (!isLoggedIn) {
+            setVoteMessage('Please log in to vote')
+            return
+        } 
+        if (isVoted) {
+            setVoteMessage('You have already voted for this article')
+            return
+        }
+
+        // Optimistis rendering
         const newVote = article.votes + vote
         setArticle({ ...article, votes: newVote })
+        setIsVoted(true)
+
 
         updateArticleVotes(article_id, vote)
+        .then(() => {
+            setIsVoted(true)
+            // Store voted article in local storage
+            const votedArticles = getVotedArticles()
+            setVotedArticles([...votedArticles, article_id])
+        })
         .catch(() => {
             setArticle({...article, votes: article.votes - vote})
-            setError('Failed to update votes.')
+            setError('Failed to update votes')
         })
     }
 
@@ -69,6 +101,7 @@ const SingleArticle = () => {
                                 Edit
                             </Button> */}
                         </Card.Body>
+
                         <Card.Footer className="text-muted single-card-footer">
                             <p className='mb-0'>Votes: {article.votes}</p>
                             <Button variant="success" onClick={() => handleVote(1)}>👍</Button>
@@ -77,6 +110,7 @@ const SingleArticle = () => {
                     </Card>
                 </Col> 
             </Row>
+            {voteMessage && <Alert variant="danger" className="mt-2">{voteMessage}</Alert>}
             <CommentForm article_id={article_id} handleCommentPosted={handleCommentPosted}/>
             <Row>
                 <CommentsSection article_id={article_id} comment_count={article.comment_count}/>

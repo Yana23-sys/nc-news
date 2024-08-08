@@ -39,6 +39,7 @@ const Users = () => {
     return (
         <div className='users-container'>
             <h1>Users</h1>
+            <button onClick={() => setLoggedInUser({})}>Log out</button>
             <ListGroup variant="flush" className='user-list-container'>
                 <ListGroup.Item className='user-list-header'>
                     <Row>

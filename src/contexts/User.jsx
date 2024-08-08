@@ -18,6 +18,7 @@ export const UserProvider = (props) => {
     const [loggedInUser, setLoggedInUser] = useState(() => getLocalStorage('loggedInUser'))
     const isLoggedIn = Object.keys(loggedInUser).length > 0
 
+
     useEffect(() => {
         setLocalStorage("loggedInUser", loggedInUser)
     }, [loggedInUser])

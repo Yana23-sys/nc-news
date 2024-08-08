@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import { Button, Form, Alert } from 'react-bootstrap'
-import { postComment } from '../api' // Function to post comment to the backend
+import { postComment } from '../api' 
 import '../styling/CommentsSection.css'
+import { UserContext } from '../contexts/User'
+import { useContext } from 'react'
 
 
 const CommentForm = ({ article_id, handleCommentPosted }) => {
@@ -10,12 +12,18 @@ const CommentForm = ({ article_id, handleCommentPosted }) => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const currentUser = 'grumpy19'
+    const { isLoggedIn } = useContext(UserContext)
 
 
 
     const handleSubmit = (event) => {
         event.preventDefault()
 
+        if (!isLoggedIn) {
+            setError('Please log in to post a comment')
+            return
+        }
+        
         if (comment === '') {
             setError('Comment cannot be empty')
             return
