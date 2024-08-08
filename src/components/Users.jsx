@@ -1,13 +1,18 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { fetchUsers } from '../api'
-import { ListGroup, Image, Row, Col } from 'react-bootstrap'
+import { ListGroup, Image, Row, Col, Button } from 'react-bootstrap'
 import '../styling/Users.css'
+import { UserContext } from '../contexts/User'
 
 
 const Users = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+
+    // const [loginPrompt, setLoginPrompt] = useState("")
+    const { setLoggedInUser } = useContext(UserContext)
+
 
     useEffect(() => {
         setLoading(true)
@@ -22,8 +27,16 @@ const Users = () => {
         })
     }, [])
 
+    const handleClick = (user) => {
+        setLoggedInUser(user)
+        // setLoginPrompt("")
+        console.log(user.username, 'logged in')
+    }
+
+
     if (loading) return <p>Loading users...</p>
     if (error) return <p>Failed to load users</p>
+
 
     return (
         <div className='users-container'>
@@ -44,6 +57,7 @@ const Users = () => {
                             </Col>
                             <Col md lg="6"><p>{user.username}</p></Col>
                             <Col ><p>{user.name}</p></Col>
+                            <Col><Button onClick={() => handleClick(user)} variant="primary">Log in</Button></Col>
                             
                         </Row>
                     </ListGroup.Item>

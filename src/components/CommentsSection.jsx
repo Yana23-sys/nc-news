@@ -34,7 +34,7 @@ const CommentsSection = ({ article_id, comment_count }) => {
         <Container className='comment-list'>
             <h3>Comments: {comment_count}</h3>
 
-            <Row xs={1} sm={2} md={2} lg={4} className="g-4">
+            <Row xs={1} sm={1} md={2} lg={4} className="g-4">
                 {comments.map((comment, idx) => 
                     <Col key={idx}>
                         <Card border="light" className='one-comment-card' key={comment.comment_id}>

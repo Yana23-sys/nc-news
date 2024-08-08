@@ -10,18 +10,18 @@ import Users from './components/Users.jsx'
 function App() {
 
   return (
-    <>
-     <Header />
+      <>
+        <Header />
 
-     <main className="app-main">
-        <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/articles" element={<ArticleList/>} />
-            <Route path="/articles/:article_id" element={<SingleArticle/>}/>
-            <Route path="/users" element={<Users />} />
-        </Routes>
-     </main>
-    </>
+        <main className="app-main">
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/articles" element={<ArticleList/>} />
+                <Route path="/articles/:article_id" element={<SingleArticle/>}/>
+                <Route path="/users" element={<Users />} />
+            </Routes>
+        </main>
+      </>
   )
 }
 
