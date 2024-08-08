@@ -10,7 +10,7 @@ const Users = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
-    const { setLoggedInUser } = useContext(UserContext)
+    const { loggedInUser, setLoggedInUser } = useContext(UserContext)
 
 
     useEffect(() => {
@@ -39,7 +39,8 @@ const Users = () => {
     return (
         <div className='users-container'>
             <h1>Users</h1>
-            <button onClick={() => setLoggedInUser({})}>Log out</button>
+            {loggedInUser.username ? <h2>You are logged in as {loggedInUser.username}</h2> : <h2>Select a user to log in</h2>}
+            <Button variant="danger" onClick={() => setLoggedInUser({})}>Log out</Button>
             <ListGroup variant="flush" className='user-list-container'>
                 <ListGroup.Item className='user-list-header'>
                     <Row>
@@ -56,8 +57,7 @@ const Users = () => {
                             </Col>
                             <Col md lg="6"><p>{user.username}</p></Col>
                             <Col ><p>{user.name}</p></Col>
-                            <Col><Button onClick={() => handleClick(user)} variant="primary">Log in</Button></Col>
-                            
+                            <Col><Button onClick={() => handleClick(user)} variant="primary">Log in</Button></Col>                         
                         </Row>
                     </ListGroup.Item>
                 ))}
