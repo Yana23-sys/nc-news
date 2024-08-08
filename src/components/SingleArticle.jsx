@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react'
-import { useParams} from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { fetchArticleById, updateArticleVotes } from '../api'
 import '../styling/SingleArticle.css'
 import CommentsSection from './CommentsSection'
@@ -115,7 +115,7 @@ const SingleArticle = () => {
             <Row>
                 <CommentsSection article_id={article_id} comment_count={article.comment_count}/>
             </Row>
-            <Card.Link to="/articles">Back to Articles</Card.Link>
+            <Card.Link as={Link} to="/articles">Back to Articles</Card.Link>
         </Container>
     )
 }

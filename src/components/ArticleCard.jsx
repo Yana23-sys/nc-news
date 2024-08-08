@@ -1,9 +1,10 @@
 import "../styling/ArticleCard.css"
 import Card from 'react-bootstrap/Card'
+import { Link } from 'react-router-dom'
 
 const ArticleCard = ({ article }) => {
     return (
-      <Card.Link className="read-article-link" href={`/articles/${article.article_id}`}>
+      <Card.Link className="read-article-link" as={Link} to={`/articles/${article.article_id}`}>
         <Card className="article-card">
 
           <Card.Body className="article-card-body">
