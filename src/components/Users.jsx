@@ -10,7 +10,6 @@ const Users = () => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
 
-    // const [loginPrompt, setLoginPrompt] = useState("")
     const { setLoggedInUser } = useContext(UserContext)
 
 
@@ -29,7 +28,6 @@ const Users = () => {
 
     const handleClick = (user) => {
         setLoggedInUser(user)
-        // setLoginPrompt("")
         console.log(user.username, 'logged in')
     }
 
