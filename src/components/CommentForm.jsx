@@ -6,13 +6,13 @@ import { UserContext } from '../contexts/User'
 import { useContext } from 'react'
 
 
-const CommentForm = ({ article_id, handleCommentPosted }) => {
+const CommentForm = ({ article_id, setUpdatedComments }) => {
     const [comment, setComment] = useState('')
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
-    const currentUser = 'grumpy19'
-    const { isLoggedIn } = useContext(UserContext)
+    // const currentUser = 'grumpy19'
+    const { isLoggedIn, loggedInUser } = useContext(UserContext)
 
 
 
@@ -30,12 +30,13 @@ const CommentForm = ({ article_id, handleCommentPosted }) => {
         }
 
         setIsSubmitting(true)
+        const newComment = { body: comment, username: loggedInUser.username }
 
-        postComment(article_id, { body: comment, username: currentUser })
+        postComment(article_id, newComment)
             .then(() => {
+                setUpdatedComments(prevValue => !prevValue)
                 setSuccess('Comment posted successfully!')
                 setComment('')
-                handleCommentPosted() // refresh comments in singleArticle -> CommentsSection
             })
             .catch(() => {
                 setError('Failed to post comment. Please try again.')

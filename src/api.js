@@ -60,3 +60,15 @@ export const fetchUsers = () => {
             throw error
         })
 }
+
+export const deleteComment = (comment_id) => {
+    return api.delete(`/comments/${comment_id}`)
+        .then(response => {
+            console.log('Deleted comment:', response.data)
+            response.data
+        })
+        .catch(error => {
+            console.error('Error deleting comment:', error)
+            throw error
+        })
+}
