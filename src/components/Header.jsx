@@ -6,12 +6,18 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
+// import { useContext } from 'react'
+// import { UserContext } from '../contexts/User'
+
 const Header = () => {
+    // const { loggedInUser, isLoggedIn } = useContext(UserContext)
+    // console.log(loggedInUser, isLoggedIn)
     
     return (
         <Navbar expand="md" className="bg-body-tertiary mb-3">
             <Container fluid>
                 <Navbar.Brand href="#home">NC News</Navbar.Brand>
+                {/* <p>Hello {isLoggedIn ? loggedInUser.username : 'guest'}</p> */}
 
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
 
@@ -41,6 +47,8 @@ const Header = () => {
                             </NavDropdown>
 
                             <Nav.Link href="/profile">My profile</Nav.Link>
+                            <Nav.Link href="/users">Users</Nav.Link>
+
                         </Nav>
 
                         <Form className="d-flex">

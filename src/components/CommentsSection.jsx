@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react'
 import { fetchComments } from '../api'
 import '../styling/CommentsSection.css'
-import Card from 'react-bootstrap/Card'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
+import { Card, Col, Row, Container} from 'react-bootstrap'
+
+
 
 
 const CommentsSection = ({ article_id, comment_count }) => {
     const [comments, setComments] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    // const [newComment, setNewComment] = useState('')
 
     useEffect(() => {
         setLoading(true)
@@ -26,17 +24,17 @@ const CommentsSection = ({ article_id, comment_count }) => {
     }, [article_id])
 
     
+
     if (loading) return <p>Loading article...</p>
     if (error) return <p>Failed to fetch article</p>
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault()
-    // }
+    
 
     return (
         <Container className='comment-list'>
             <h3>Comments: {comment_count}</h3>
-            <Row xs={1} sm={2} md={2} lg={4} className="g-4">
+
+            <Row xs={1} sm={1} md={2} lg={4} className="g-4">
                 {comments.map((comment, idx) => 
                     <Col key={idx}>
                         <Card border="light" className='one-comment-card' key={comment.comment_id}>
@@ -55,9 +53,3 @@ const CommentsSection = ({ article_id, comment_count }) => {
 }
 
 export default CommentsSection
-
-
-            {/* <form onSubmit={handleSubmit}>
-                <textarea value={newComment} className="form-control" rows="3" onChange={event => setNewComment(event.target.value)}/>
-                <button type="submit" className="btn btn-primary">Add Comment</button>
-            </form> */}

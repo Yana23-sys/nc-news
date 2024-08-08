@@ -8,7 +8,7 @@
     height: auto;
 }
 
-.comment-card {
+.one-comment-card {
     height: 33vh;
 }
 
@@ -21,7 +21,7 @@
       font-size: 0.8rem;
     }
     .one-comment-card {
-        height: 38vh;
+        height: 41vh;
     }
 }
 
@@ -32,3 +32,16 @@ p.card-date {
 }
 
 
+/* Form */
+
+.form-button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.form-comment-container {
+    width: 75%;
+    padding-left: 20%;
+    margin-top: 40px;
+}
