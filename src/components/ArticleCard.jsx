@@ -1,5 +1,5 @@
 import "../styling/ArticleCard.css"
-import Card from 'react-bootstrap/Card'
+import { Card, Col, Badge} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const ArticleCard = ({ article }) => {
@@ -9,14 +9,17 @@ const ArticleCard = ({ article }) => {
 
           <Card.Body className="article-card-body">
 
-            <Card.Subtitle className="article-card-subtitle">
-              <p>By {article.author}</p>
-              <p>{new Date(article.created_at).toDateString()}</p>
+            <Card.Subtitle className="text-muted article-card-subtitle">
+              <Col className="article-card-author">
+                <p>By {article.author}</p>
+                <p className='article-card-date'>{new Date(article.created_at).toDateString()}</p>
+              </Col>
+              <Badge pill bg="info" className='flex justify-end'>
+                <Card.Text className="article-card-topic">{article.topic}</Card.Text>
+              </Badge>
             </Card.Subtitle>
 
             <Card.Title id="article-title">{article.title}</Card.Title>
-
-            <Card.Text className="article-card-topic">{article.topic}</Card.Text>
 
             <Card.Img  className="article-img" variant="top" src={article.article_img_url} />
 

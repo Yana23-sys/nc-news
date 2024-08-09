@@ -3,6 +3,8 @@ import { fetchComments, deleteComment } from '../api'
 import '../styling/CommentsSection.css'
 import { Card, Col, Row, Container, Button } from 'react-bootstrap'
 import { UserContext } from '../contexts/User'
+import loadingAnimation  from '../assets/loadingAnimation.json' 
+import Lottie from 'lottie-react'
 
 
 
@@ -30,8 +32,6 @@ const CommentsSection = ({ article_id, setUpdatedComments, updatedComments }) =>
         })
     }, [article_id, updatedComments])
 
-    console.log(comments, 'comments in state section')
-
     
     
 
@@ -51,14 +51,13 @@ const CommentsSection = ({ article_id, setUpdatedComments, updatedComments }) =>
         })
     }
 
-
-    if (loading) return <p>Loading comments...</p>
-
     
 
     return (
         <Container className='comment-list'>
             <h3>Comments: {comments.length}</h3>
+
+            {loading && <Lottie animationData={loadingAnimation} style={{height: '100px', width: '100px'}} loop={true}/>}
 
             {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
 
@@ -68,12 +67,13 @@ const CommentsSection = ({ article_id, setUpdatedComments, updatedComments }) =>
                         <Card border="light" className='one-comment-card' key={comment.comment_id}>
                             <Card.Header>{comment.author}</Card.Header>
 
-                            <Card.Text className="card-date text-muted">{new Date(comment.created_at).toDateString()}</Card.Text>
+                            <Card.Text className="card-date text-muted">{new Date(comment.created_at).toLocaleString()}</Card.Text>
                             <Card.Body className='d-flex justify-content-start'>
                                 <Card.Text className="card-text-body">{comment.body}</Card.Text>
                             </Card.Body>
-                            <Card.Link className="mb-3" href="#">Votes: {comment.votes}</Card.Link>
-
+                            <div className="d-flex justify-content-end" style={{marginRight: '20px'}}>
+                                <Card.Text className="mb-3">Votes: {comment.votes}</Card.Text>
+                            </div>
                             {loggedInUser.username === comment.author && 
                             <Button variant="danger" onClick={() => handleDeleteComment(comment.comment_id)}>
                                 {isDeleting && comment.comment_id === commentIdToDelete ? 'Deleting...' : 'Delete'}

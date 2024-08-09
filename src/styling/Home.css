@@ -1,9 +1,9 @@
 #home-title {
-    background-color: rgb(213, 189, 157);
     text-align: center;
     padding: 20px;
 }
 
 .home-container h2 {
     margin-top: 60px;
+    margin-bottom: 0px;
 }

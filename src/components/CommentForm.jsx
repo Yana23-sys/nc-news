@@ -49,7 +49,7 @@ const CommentForm = ({ article_id, setUpdatedComments }) => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group controlId="commentBody" className="mb-3 form-comment-container">
-                <Form.Label className='comment-form-label'><h3>Leave a comment</h3></Form.Label>
+                <Form.Label className='comment-form-label'><p>Leave a comment</p></Form.Label>
                 <Form.Control as="textarea" rows={3} value={comment} onChange={(event) => setComment(event.target.value)} disabled={isSubmitting}
                 />
                  <div className="form-button-container">

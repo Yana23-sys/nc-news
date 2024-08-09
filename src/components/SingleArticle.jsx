@@ -4,9 +4,11 @@ import { fetchArticleById, updateArticleVotes } from '../api'
 import '../styling/SingleArticle.css'
 import CommentsSection from './CommentsSection'
 import CommentForm from './CommentForm'
-import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Alert,Badge } from 'react-bootstrap'
 import { UserContext } from '../contexts/User'
 import { getVotedArticles, setVotedArticles } from '../utils/articleVotesLocalStorage'
+import loadingAnimation  from '../assets/loadingAnimation.json' 
+import Lottie from 'lottie-react'
 
 
 const SingleArticle = () => {
@@ -27,11 +29,12 @@ const SingleArticle = () => {
     useEffect(() => {
         fetchArticleById(article_id)
         .then(article => {
-            setArticle(article)
+            if (!article) setError('Article not found')
+            else setArticle(article)
             setLoading(false)
         })
         .catch(err => {
-            setError('Failed to load article.')
+            setError('Failed to load article')
             setLoading(false)
         })
 
@@ -72,15 +75,7 @@ const SingleArticle = () => {
     }
 
 
-    // const handleCommentPosted = () => {
-    //     setUpdatedComments(prevValue => !prevValue) // refresh comments section
-    //         // if (typeof prevValue === 'boolean') return [comment]
-    //         // else return [...prevValue, comment]
-            
-    // }
-
     
-    if (loading) return <p>Loading article...</p>
     if (error) return <Alert variant="danger">{error}</Alert>
     if (!article) return <Alert variant="danger">Article not found</Alert>
 
@@ -88,21 +83,24 @@ const SingleArticle = () => {
     return (
         <Container>
             <Row className="my-4 single-article-container">
-                <Col xs={3} sm={5} md={7} lg={8}>
-                    <Card>
-                        <Card.Body className="m-2">
-                            <Card.Title className="mt-3 mb-3">{article.title}</Card.Title>
+                <Col md={8} lg={6}>
+                    <Card className="single-article-card">
+                        <Card.Body className=" m-2 mt-0 pt-0">
                             <Card.Subtitle className="text-muted single-card-subtitle">
-                            <p>By {article.author}</p>
-                            <p>{new Date(article.created_at).toDateString()}</p>
-                            </Card.Subtitle>
-                            <div className="single-card-topic-container">
+                            <Col className="single-card-author">
+                                <p>By {article.author}</p>
+                                <p className='single-card-date'>{new Date(article.created_at).toLocaleString()}</p>
+                            </Col>
+                            <Badge pill bg="info" className='flex justify-end'>
                                 <Card.Link as={Link} to={`/topics/${article.topic}`} className="single-card-topic">{article.topic}</Card.Link>
+                            </Badge>
+                            </Card.Subtitle>
+                            <Card.Title className="mt-4 mb-4 single-card-title"><h2>{article.title}</h2></Card.Title>
+                            <div >
+                            {loading && <Lottie animationData={loadingAnimation} style={{height: '200px', width: '200px'}} loop={true}/>}
+                                <Card.Img src={article.article_img_url} className='single-card-img' alt={article.title}/>
+                                <Card.Text className="single-card-body">{article.body}</Card.Text>
                             </div>
-                            <div className="article-img-container">
-                                <Card.Img variant="top" src={article.article_img_url} />
-                            </div>
-                            <Card.Text className="m-3 mt-5 mb-4">{article.body}</Card.Text>
                             {/* <Button variant="primary" onClick={() => alert('Edit functionality not yet implemented')}>
                                 Edit
                             </Button> */}
@@ -114,12 +112,12 @@ const SingleArticle = () => {
                             <Button variant="danger" onClick={() => handleVote(-1)}>👎</Button>
                         </Card.Footer>
                     </Card>
+                    {voteMessage && <Alert variant="danger" className="mt-2">{voteMessage}</Alert>}
+                    <CommentForm article_id={article_id} setUpdatedComments={setUpdatedComments} />
                 </Col> 
             </Row>
-            {voteMessage && <Alert variant="danger" className="mt-2">{voteMessage}</Alert>}
 
-            <CommentForm article_id={article_id} setUpdatedComments={setUpdatedComments} />
-            <Row>
+            <Row >
                 <CommentsSection article_id={article_id} setUpdatedComments={setUpdatedComments} updatedComments={updatedComments}/>
             </Row>
             <Card.Link as={Link} to="/articles">Back to Articles</Card.Link>

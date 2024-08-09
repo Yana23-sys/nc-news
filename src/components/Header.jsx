@@ -1,12 +1,14 @@
 import { Container, Nav, Navbar, NavDropdown, Offcanvas, Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { fetchTopics } from '../api'
+import { UserContext } from '../contexts/User'
 
 const Header = () => {
     const [topics, setTopics] = useState([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('')
+    const { isLoggedIn } = useContext(UserContext)
 
     useEffect(() => {
         setLoading(true)
@@ -60,7 +62,7 @@ const Header = () => {
                             </NavDropdown>
 
                             <Nav.Link as={Link} to="/profile">My profile</Nav.Link>
-                            <Nav.Link as={Link} to="/users">Users</Nav.Link>
+                            <Nav.Link as={Link} to="/users">{isLoggedIn ? 'Log out' : 'Log in'}</Nav.Link>
 
                         </Nav>
 

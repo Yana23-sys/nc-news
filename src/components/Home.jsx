@@ -10,8 +10,6 @@ const Home = () => {
     const newestArticlesParams = { sort_by: 'created_at', order: 'desc' }
     const popularArticlesParams = { sort_by: 'votes', order: 'desc' }
 
-    // console.log(loggedInUser, isLoggedIn)
-
     return (
         <div className='home-container'>
             <h1 id='home-title'>Welcome {isLoggedIn ? loggedInUser.name : 'guest'}!</h1>
