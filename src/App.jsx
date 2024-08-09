@@ -6,6 +6,7 @@ import ArticleList from './components/ArticleList.jsx'
 import SingleArticle from './components/SingleArticle.jsx'
 import Home from './components/Home.jsx'
 import Users from './components/Users.jsx'
+import Topic from './components/Topic.jsx'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/articles" element={<ArticleList/>} />
                 <Route path="/articles/:article_id" element={<SingleArticle/>}/>
                 <Route path="/users" element={<Users />} />
+                <Route path="/topics/:topic" element={<Topic />} />
             </Routes>
         </main>
       </>

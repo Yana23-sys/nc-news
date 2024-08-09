@@ -1,7 +1,28 @@
 import { Container, Nav, Navbar, NavDropdown, Offcanvas, Form, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { fetchTopics } from '../api'
 
 const Header = () => {
+    const [topics, setTopics] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('')
+
+    useEffect(() => {
+        setLoading(true)
+        fetchTopics()
+        .then(topics => {
+            setTopics(topics)
+            setLoading(false)
+        })
+        .catch(() => {
+            setError('Failed to load topics. Please try again')
+            setLoading(false)
+        })
+    }, [])
+    
+    if (loading) return <Navbar>Loading topics...</Navbar>
+    if (error) return <Navbar>{error}</Navbar>
     
     return (
         <Navbar expand="md" className="bg-body-tertiary mb-3">
@@ -28,11 +49,14 @@ const Header = () => {
                             <Nav.Link as={Link}  to="/articles">Articles</Nav.Link>
 
                             <NavDropdown title="Topics" id="basic-nav-dropdown">
-                                <NavDropdown.Item href="#action/3.1">Topic 1</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.2">Topic 2</NavDropdown.Item>
-                                <NavDropdown.Item href="#action/3.3">Topic 3</NavDropdown.Item>
-                                <NavDropdown.Divider />
-                                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+
+                                {topics.map((topic) => {
+                                    const slugFirstLetterCapital = topic.slug.charAt(0).toUpperCase() + topic.slug.slice(1)
+                                    return (
+                                        <NavDropdown.Item key={topic.slug} as={Link} to={`/topics/${topic.slug}`}>
+                                            {slugFirstLetterCapital}
+                                        </NavDropdown.Item>
+                                )})}
                             </NavDropdown>
 
                             <Nav.Link as={Link} to="/profile">My profile</Nav.Link>
