@@ -96,6 +96,9 @@ const SingleArticle = () => {
                             <p>By {article.author}</p>
                             <p>{new Date(article.created_at).toDateString()}</p>
                             </Card.Subtitle>
+                            <div className="single-card-topic-container">
+                                <Card.Link as={Link} to={`/topics/${article.topic}`} className="single-card-topic">{article.topic}</Card.Link>
+                            </div>
                             <div className="article-img-container">
                                 <Card.Img variant="top" src={article.article_img_url} />
                             </div>

@@ -72,3 +72,12 @@ export const deleteComment = (comment_id) => {
             throw error
         })
 }
+
+export const fetchTopics = () => {
+    return api.get('/topics')
+        .then(response => response.data) 
+        .catch(error => {
+            console.error('Error fetching topics:', error)
+            throw error
+        })
+}
