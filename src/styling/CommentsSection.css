@@ -1,5 +1,5 @@
 .comment-list {
-    background-color: rgb(213, 189, 157);
+    background-color: rgb(237, 236, 236);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -41,7 +41,10 @@ p.card-date {
 }
 
 .form-comment-container {
-    width: 75%;
-    padding-left: 20%;
+    width: 100%;
     margin-top: 40px;
+}
+
+.comment-form-label {
+    font-size: 1.5rem;
 }

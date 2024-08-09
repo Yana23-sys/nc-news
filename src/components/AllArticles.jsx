@@ -16,7 +16,7 @@ const AllArticles = () => {
 
     return (
         <div>
-            <Row className='flex justify-content-between align-items-center' style={{'margin-top': '30px'}} >
+            <Row className='flex justify-content-between align-items-center' style={{'marginTop': '30px', 'marginBottom': '50px'}} >
                 <Col style={{textAlign: 'left'}}>
                     <h1 >All Articles</h1>
                 </Col>

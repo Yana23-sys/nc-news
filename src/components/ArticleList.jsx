@@ -5,12 +5,14 @@ import '../styling/ArticleList.css'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
+import loadingAnimation  from '../assets/loadingAnimation.json' 
+import Lottie from 'lottie-react'
 
 const ArticleList = ({ params, limit}) => {
 
     const [articles, setArticles] = useState([])
     const [loadingArticles, setLoadingArticles] = useState(true)
-    const [isError, setIsError] = useState(false)
+    const [error, setError] = useState(false)
 
     useEffect(() => {
         setLoadingArticles(true)
@@ -20,16 +22,16 @@ const ArticleList = ({ params, limit}) => {
             setLoadingArticles(false)
         })
         .catch(error => {
-            setIsError(true)
+            setError('Failed to fetch articles')
             setLoadingArticles(false)
           })
     }, [params, limit])
 
-    if (loadingArticles) return <p>Loading articles...</p>
-    if (isError) return <p>Failed to fetch articles</p>
+    if (error) return <Alert variant="danger">{error}</Alert>
 
     return (
         <Container className='article-list-container'>
+            {loadingArticles && <Lottie animationData={loadingAnimation} style={{height: '100px', width: '100px'}} loop={true}/>}
             <Row xs={1} sm={2} md={2} lg={3} className="g-4">
                 {articles.map((article, idx) => 
                     <Col key={idx}>
