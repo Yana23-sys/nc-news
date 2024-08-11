@@ -61,23 +61,23 @@ const CommentsSection = ({ article_id, setUpdatedComments, updatedComments }) =>
 
             {error && <Alert variant="danger" className="mt-2">{error}</Alert>}
 
-            <Row xs={1} sm={1} md={2} lg={4} className="g-4">
+            <Row xs={1} style={{maxHeight: '300px', overflowY: 'auto'}}>
                 {comments.map((comment, idx) => 
                     <Col key={idx}>
                         <Card border="light" className='one-comment-card' key={comment.comment_id}>
                             <Card.Header>{comment.author}</Card.Header>
 
                             <Card.Text className="card-date text-muted">{new Date(comment.created_at).toLocaleString()}</Card.Text>
-                            <Card.Body className='d-flex justify-content-start'>
-                                <Card.Text className="card-text-body">{comment.body}</Card.Text>
+                            <Card.Body>
+                                <Card.Text >{comment.body}</Card.Text>
                             </Card.Body>
-                            <div className="d-flex justify-content-end" style={{marginRight: '20px'}}>
-                                <Card.Text className="mb-3">Votes: {comment.votes}</Card.Text>
+                            <div className="d-flex justify-content-between" style={{marginRight: '20px', width: '100%', padding:'0 10px 10px 10px'}}>
+                                <Card.Text>Votes: {comment.votes}</Card.Text>
+                                {loggedInUser.username === comment.author && 
+                                <Button variant="danger" onClick={() => handleDeleteComment(comment.comment_id)} size="sm" style={{height: '25px', padding: '0 10px'}}>
+                                    {isDeleting && comment.comment_id === commentIdToDelete ? 'Deleting...' : 'Delete'}
+                                </Button>}
                             </div>
-                            {loggedInUser.username === comment.author && 
-                            <Button variant="danger" onClick={() => handleDeleteComment(comment.comment_id)}>
-                                {isDeleting && comment.comment_id === commentIdToDelete ? 'Deleting...' : 'Delete'}
-                            </Button>}
                         </Card>
                     </Col>
                 )}

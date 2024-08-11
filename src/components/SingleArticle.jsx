@@ -83,7 +83,7 @@ const SingleArticle = () => {
     return (
         <Container>
             <Row className="my-4 single-article-container">
-                <Col md={8} lg={7}>
+                <Col md={8}>
                     <Card className="single-article-card">
                         <Card.Body className=" m-2 mt-0 pt-0">
                             <Card.Subtitle className="text-muted single-card-subtitle">
@@ -117,7 +117,9 @@ const SingleArticle = () => {
             </Row>
 
             <Row >
-                <CommentsSection article_id={article_id} setUpdatedComments={setUpdatedComments} updatedComments={updatedComments}/>
+                <Col md={{ span: 8, offset: 2 }}>
+                    <CommentsSection article_id={article_id} setUpdatedComments={setUpdatedComments} updatedComments={updatedComments}/>
+                </Col>
             </Row>
             <Card.Link as={Link} to="/articles">Back to Articles</Card.Link>
         </Container>
