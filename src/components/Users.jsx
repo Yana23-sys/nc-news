@@ -41,22 +41,17 @@ const Users = () => {
             {loggedInUser.username ? <h2>You are logged in as {loggedInUser.username}</h2> : <h2>Select a user to log in</h2>}
             {loggedInUser.username && <Button variant="danger" onClick={() => setLoggedInUser({})}>Log out</Button>}
             <ListGroup variant="flush" className='user-list-container'>
-                <ListGroup.Item className='user-list-header'>
-                    <Row>
-                        <Col><h3>Avatar</h3></Col>
-                        <Col><h3>Username</h3></Col>
-                        <Col><h3>Name</h3></Col>
-                    </Row>
-                </ListGroup.Item>
                 {users.map(user => (
                     <ListGroup.Item key={user.username} className='user-list-item'>
                         <Row>
-                            <Col >
+                            <Col xs="4" md="3">
                                 <Image src={user.avatar_url} thumbnail className='avatar-user-list' />
                             </Col>
-                            <Col md lg="6"><p>{user.username}</p></Col>
-                            <Col ><p>{user.name}</p></Col>
-                            <Col><Button onClick={() => handleClick(user)} variant="primary">Log in</Button></Col>                         
+                            <Col xs="5" md="7">
+                                <p className="pt-2"><strong>{user.username}</strong></p>
+                                <p>({user.name})</p>
+                            </Col>
+                            <Col xs="3" md="2"><Button onClick={() => handleClick(user)} variant="primary" className="mt-3">Log in</Button></Col>                         
                         </Row>
                     </ListGroup.Item>
                 ))}
