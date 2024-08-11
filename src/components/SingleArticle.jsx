@@ -76,14 +76,14 @@ const SingleArticle = () => {
 
 
     
+    if (loading) return <Lottie animationData={loadingAnimation} style={{height: '200px', width: '200px'}} loop={true}/>
     if (error) return <Alert variant="danger">{error}</Alert>
     if (!article) return <Alert variant="danger">Article not found</Alert>
 
-    
     return (
         <Container>
             <Row className="my-4 single-article-container">
-                <Col md={8} lg={6}>
+                <Col md={8} lg={7}>
                     <Card className="single-article-card">
                         <Card.Body className=" m-2 mt-0 pt-0">
                             <Card.Subtitle className="text-muted single-card-subtitle">
@@ -97,7 +97,6 @@ const SingleArticle = () => {
                             </Card.Subtitle>
                             <Card.Title className="mt-4 mb-4 single-card-title"><h2>{article.title}</h2></Card.Title>
                             <div >
-                            {loading && <Lottie animationData={loadingAnimation} style={{height: '200px', width: '200px'}} loop={true}/>}
                                 <Card.Img src={article.article_img_url} className='single-card-img' alt={article.title}/>
                                 <Card.Text className="single-card-body">{article.body}</Card.Text>
                             </div>

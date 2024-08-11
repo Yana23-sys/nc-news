@@ -23,13 +23,13 @@ const Header = () => {
         })
     }, [])
     
-    if (loading) return <Navbar>Loading topics...</Navbar>
+    // if (loading) return <Navbar>Loading topics...</Navbar>
     if (error) return <Navbar>{error}</Navbar>
     
     return (
         <Navbar expand="md" className="bg-body-tertiary mb-3">
             <Container fluid>
-                <Navbar.Brand href="#">NC News</Navbar.Brand>
+                <Navbar.Brand as={Link}  to="/">NC News</Navbar.Brand>
 
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
 
@@ -47,7 +47,6 @@ const Header = () => {
 
                     <Offcanvas.Body>
                         <Nav className="justify-content-end flex-grow-1 pe-3">
-                            <Nav.Link as={Link}  to="/">Home</Nav.Link>
                             <Nav.Link as={Link}  to="/articles">Articles</Nav.Link>
 
                             <NavDropdown title="Topics" id="basic-nav-dropdown">

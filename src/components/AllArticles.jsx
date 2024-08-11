@@ -1,7 +1,8 @@
 import ArticleList from './ArticleList'
-import { Dropdown, Row, Col, DropdownItemText} from 'react-bootstrap'
+import { Dropdown, Row, Col, DropdownItemText, Form} from 'react-bootstrap'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import '../styling/AllArticles.css'
 
 const AllArticles = () => {
     const [searchParams, setSearchParams] = useSearchParams()
@@ -16,34 +17,33 @@ const AllArticles = () => {
 
     return (
         <div>
-            <Row className='flex justify-content-between align-items-center' style={{'marginTop': '30px', 'marginBottom': '50px'}} >
-                <Col style={{textAlign: 'left'}}>
-                    <h1 >All Articles</h1>
-                </Col>
-                <Col style={{textAlign: 'right'}}>
-                    <Dropdown >
-                        <Dropdown.Toggle variant="success"  id="dropdown-basic">
-                            Filter
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <DropdownItemText>Sorted By: {sortBy==='created_at' ? 'Date' : sortBy==='votes' ? 'Votes' : 'Comment Count'}  |  Order: {order==='asc' ? 'Ascending' : 'Descending'}</DropdownItemText>
-                            <Dropdown.Header>Sort by:</Dropdown.Header>
-                            <Dropdown.Item as="button" onClick={() => handleSort('created_at', order)}>Date</Dropdown.Item>
-                            <Dropdown.Item as="button" onClick={() => handleSort('votes', order)}>Votes</Dropdown.Item>
-                            <Dropdown.Item as="button" onClick={() => handleSort('comment_count', order)}>Comment Count</Dropdown.Item>
-
-                            <Dropdown.Divider />
-                            <Dropdown.Header>Order by:</Dropdown.Header>
-                            <Dropdown.Item onClick={() => handleSort(sortBy, 'asc')}>
-                                    Ascending
-                                </Dropdown.Item>
-                                <Dropdown.Item onClick={() => handleSort(sortBy, 'desc')}>
-                                    Descending
-                                </Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                </Col>
-            </Row>
+            <h1 >All Articles</h1>
+            <div className="article-filters">
+                <Form.Group as={Row} className="mb-3 article-filter" controlId="sortBy">
+                    <Form.Label column xs="3" sm="3" >
+                        Sort By
+                    </Form.Label>
+                    <Col xs="6" sm="7" >
+                        <Form.Select size="sm" value={sortBy} aria-label="Sort By" onChange={(e) => handleSort(e.target.value, order)}>
+                            <option value="created_at">Date</option>
+                            <option value="votes">Votes</option>
+                            <option value="comment_count">Comment Count</option>
+                        </Form.Select>
+                    </Col>
+                </Form.Group>
+                 
+                <Form.Group as={Row} className="mb-3 article-filter" controlId="orderBy" >
+                    <Form.Label column xs="3" sm="4">
+                        Order By
+                    </Form.Label>
+                    <Col xs="6" sm="6">
+                        <Form.Select size="sm" value={order} aria-label="Order By" onChange={(e) => handleSort(sortBy, e.target.value)}>
+                            <option value="desc">Descending</option>
+                            <option value="asc">Ascending</option>
+                        </Form.Select>
+                    </Col>
+                </Form.Group>
+            </div>
             <ArticleList params={{sort_by: sortBy, order: order}}/>
         </div>
     )

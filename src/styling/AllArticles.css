@@ -1,0 +1,12 @@
+/* .article-filters {
+    
+} */
+
+@media screen and (min-width: 575px) {
+    .article-filters {
+        display: flex;
+    }
+    .article-filter {
+        width: 300px;
+    }
+}

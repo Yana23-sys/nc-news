@@ -39,7 +39,7 @@ const Users = () => {
     return (
         <div className='users-container'>
             {loggedInUser.username ? <h2>You are logged in as {loggedInUser.username}</h2> : <h2>Select a user to log in</h2>}
-            <Button variant="danger" onClick={() => setLoggedInUser({})}>Log out</Button>
+            {loggedInUser.username && <Button variant="danger" onClick={() => setLoggedInUser({})}>Log out</Button>}
             <ListGroup variant="flush" className='user-list-container'>
                 <ListGroup.Item className='user-list-header'>
                     <Row>

@@ -19,7 +19,7 @@ const ArticleCard = ({ article }) => {
               </Badge>
             </Card.Subtitle>
 
-            <Card.Title id="article-title">{article.title}</Card.Title>
+            <Card.Title className="article-title">{article.title}</Card.Title>
 
             <Card.Img  className="article-img" variant="top" src={article.article_img_url} />
 

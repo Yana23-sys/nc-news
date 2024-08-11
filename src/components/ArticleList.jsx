@@ -28,10 +28,14 @@ const ArticleList = ({ params, limit}) => {
     }, [params, limit])
 
     if (error) return <Alert variant="danger">{error}</Alert>
+    if (loadingArticles) return (
+        <div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+            <Lottie animationData={loadingAnimation} style={{height: '100px', width: '100px'}} loop={true}/>
+        </div>
+    )
 
     return (
         <Container className='article-list-container'>
-            {loadingArticles && <Lottie animationData={loadingAnimation} style={{height: '100px', width: '100px'}} loop={true}/>}
             <Row xs={1} sm={2} md={2} lg={3} className="g-4">
                 {articles.map((article, idx) => 
                     <Col key={idx}>
