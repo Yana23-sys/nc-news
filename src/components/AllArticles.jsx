@@ -18,7 +18,7 @@ const AllArticles = () => {
 
 
     return (
-        <div>
+        <div style={{width: '100%'}}>
             <h1 >All Articles</h1>
             <div className="article-filters">
                 <Form.Group as={Row} className="mb-3 article-filter" controlId="sortBy">

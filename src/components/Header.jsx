@@ -62,7 +62,7 @@ const Header = () => {
                                 )})}
                             </NavDropdown>
 
-                            <Nav.Link as={Link} to="/profile">My profile</Nav.Link>
+                            {/* <Nav.Link as={Link} to="/profile">My profile</Nav.Link> */}
                             <Nav.Link as={Link} to="/users">{isLoggedIn ? 'Log out' : 'Log in'}</Nav.Link>
 
                         </Nav>

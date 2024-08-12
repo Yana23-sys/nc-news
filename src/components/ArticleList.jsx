@@ -36,9 +36,9 @@ const ArticleList = ({ params, limit}) => {
 
     return (
         <Container className='article-list-container'>
-            <Row className="g-4">
+            <Row className="g-4" xs={1} sm={2} md={2} lg={3}>
                 {articles.map((article, idx) => 
-                    <Col key={idx} xs={1} sm={2} md={2} lg={3}>
+                    <Col key={idx} style={{width: articles.length === 1 ? '100%' : ''}}>
                         <ArticleCard key={article.article_id} article={article} />
                     </Col>
                 )}
