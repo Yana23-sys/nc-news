@@ -1,14 +1,16 @@
-import { Container, Nav, Navbar, NavDropdown, Offcanvas, Form, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Container, Nav, Navbar, NavDropdown, Offcanvas } from 'react-bootstrap'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useContext } from 'react'
 import { fetchTopics } from '../api'
 import { UserContext } from '../contexts/User'
+import Search from './Search'
 
 const Header = () => {
     const [topics, setTopics] = useState([])
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const { isLoggedIn } = useContext(UserContext)
+    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)
@@ -65,15 +67,8 @@ const Header = () => {
 
                         </Nav>
 
-                        <Form className="d-flex">
-                            <Form.Control
-                                type="search"
-                                placeholder="Search"
-                                className="me-2"
-                                aria-label="Search"
-                            />
-                            <Button variant="outline-success">Search</Button>
-                        </Form>
+                        <Search onSubmit={q => navigate(`/articles?q=${q}`)}/>
+                        
                     </Offcanvas.Body>
 
                 </Navbar.Offcanvas>

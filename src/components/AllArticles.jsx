@@ -8,12 +8,14 @@ const AllArticles = () => {
     const [searchParams, setSearchParams] = useSearchParams()
     const [sortBy, setSortBy] = useState(searchParams.get('sort_by') ||'created_at')
     const [order, setOrder] = useState(searchParams.get('order') || 'desc')
+    const search = searchParams.get('q') || ''
 
     const handleSort = (sortBy, order) => {
         setSortBy(sortBy)
         setOrder(order)
-        setSearchParams({sort_by: sortBy, order: order})
+        setSearchParams({sort_by: sortBy, order: order, q: search})
     }
+
 
     return (
         <div>
@@ -44,7 +46,7 @@ const AllArticles = () => {
                     </Col>
                 </Form.Group>
             </div>
-            <ArticleList params={{sort_by: sortBy, order: order}}/>
+            <ArticleList params={{sort_by: sortBy, order: order, search}}/>
         </div>
     )
 }
