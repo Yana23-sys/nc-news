@@ -3,12 +3,14 @@ import { fetchUsers } from '../api'
 import { ListGroup, Image, Row, Col, Button } from 'react-bootstrap'
 import '../styling/Users.css'
 import { UserContext } from '../contexts/User'
+import { useNavigate } from 'react-router-dom'
 
 
 const Users = () => {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
+    const navigate = useNavigate()
 
     const { loggedInUser, setLoggedInUser } = useContext(UserContext)
 
@@ -28,7 +30,7 @@ const Users = () => {
 
     const handleClick = (user) => {
         setLoggedInUser(user)
-        console.log(user.username, 'logged in')
+        navigate('/')
     }
 
 
